@@ -63,7 +63,7 @@ public class PongGame implements ActionListener, MouseMotionListener
             ballYspeedInt = -ballYspeedInt;
         }
 
-        if (ball.x < 0)
+        if (ball.x < -50)
         {
             gameOver = true;
         }
