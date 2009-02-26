@@ -1,7 +1,11 @@
 package org.wintrisstech.projects.pong;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class PongGame
 {
@@ -9,6 +13,11 @@ public class PongGame
     private JFrame playingField;
     private Mouser mouser;
     public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
+    public Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
+    public int ballXspeedInt = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
+    public int ballYspeedInt = ballXspeedInt;
+    public int score = 0;
+    public AudioClip boing = Applet.newAudioClip(Painter.class.getResource("fire.wav"));
 
     public void startTheGame()
     {

@@ -1,24 +1,15 @@
 package org.wintrisstech.projects.pong;
 
-import java.applet.Applet;
-import java.applet.AudioClip;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.geom.Ellipse2D;
 import javax.swing.JComponent;
-import javax.swing.JOptionPane;
 
 public class Painter extends JComponent
 {
-    private Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
-    private int ballXspeedInt = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
-    private int ballYspeedInt = ballXspeedInt;
-    private int score = 0;
-    private AudioClip boing = Applet.newAudioClip(Painter.class.getResource("fire.wav"));
     public PongGame game;
 
     @Override
@@ -33,54 +24,54 @@ public class Painter extends JComponent
         g2.drawString("Your Score Is ", 1700, 300);
         g2.setColor(Color.black);
         g2.setFont(new Font("Ariel", Font.ITALIC, 32));
-        g2.drawString("" + score, 1900, 300);
+        g2.drawString("" + game.score, 1900, 300);
 
         g2.setColor(Color.red);
-        g2.drawString("Ball Speed Is     " + ballXspeedInt, 1700, 370);
+        g2.drawString("Ball Speed Is     " + game.ballXspeedInt, 1700, 370);
 
         g2.setColor(Color.black); // Ball outline.
         g2.setStroke(new BasicStroke(6f));
-        g2.draw(ball);
+        g2.draw(game.ball);
 
         g2.setColor(Color.yellow); // Fill ball.
-        g2.fill(ball);
+        g2.fill(game.ball);
 
         g2.setColor(Color.black);
         g2.draw(game.paddle);
         g2.setColor(Color.gray);
         g2.fill(game.paddle);
 
-        ball.x = ball.x + ballXspeedInt; // The way to explain what is happening.
-        ball.y += ballYspeedInt; // The way the "Big Boys" do it.
+        game.ball.x = game.ball.x + game.ballXspeedInt; // The way to explain what is happening.
+        game.ball.y += game.ballYspeedInt; // The way the "Big Boys" do it.
 
-        if (ball.x > 1900) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
+        if (game.ball.x > 1900) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
         {
-            ballXspeedInt = -ballXspeedInt;
+            game.ballXspeedInt = -game.ballXspeedInt;
         }
 
-        if (ball.y > 900)
+        if (game.ball.y > 900)
         {
-            ballYspeedInt = -ballYspeedInt;
+            game.ballYspeedInt = -game.ballYspeedInt;
         }
 
-        if (ball.y < 0)
+        if (game.ball.y < 0)
         {
-            ballYspeedInt = -ballYspeedInt;
+            game.ballYspeedInt = -game.ballYspeedInt;
         }
 
-        if(ball.x < 0)
+        if(game.ball.x < 0)
         {
             g2.setColor(Color.BLACK); // Fun stuff for the kids.
             g2.setFont(new Font("Ariel", Font.BOLD, 300));
             g2.drawString("YOU LOSE!",50, 500);
         }
 
-        if (ball.intersects(game.paddle))
+        if (game.ball.intersects(game.paddle))
         {
-            ballXspeedInt = -ballXspeedInt;
-            score += 1;
-            ball.x += 5; // To keep the ball from sticking to the paddle
-            boing.play();
+            game.ballXspeedInt = -game.ballXspeedInt;
+            game.score += 1;
+            game.ball.x += 5; // To keep the ball from sticking to the paddle
+            game.boing.play();
         }
 
         repaint();
