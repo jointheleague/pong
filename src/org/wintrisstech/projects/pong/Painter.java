@@ -9,21 +9,16 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
-import java.net.URL;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 public class Painter extends JComponent
 {
-    private int ballXposition = 500;
-    private int ballYposition = 500;
     private Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
-    private String ballSpeedString = JOptionPane.showInputDialog("Ball Speed?");
-    private int ballXspeedInt = Integer.parseInt(ballSpeedString);
-    private int ballYspeedInt = Integer.parseInt(ballSpeedString);
+    private int ballXspeedInt = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
+    private int ballYspeedInt = ballXspeedInt;
     private int score = 0;
-    private URL boingFile = Painter.class.getResource("fire.wav");
-    private AudioClip boing = Applet.newAudioClip(boingFile);
+    private AudioClip boing = Applet.newAudioClip(Painter.class.getResource("fire.wav"));
     public PongGame game;
 
     @Override
@@ -41,7 +36,7 @@ public class Painter extends JComponent
         g2.drawString("" + score, 1900, 300);
 
         g2.setColor(Color.red);
-        g2.drawString("Ball Speed Is     " + ballSpeedString, 1700, 370);
+        g2.drawString("Ball Speed Is     " + ballXspeedInt, 1700, 370);
 
         g2.setColor(Color.black); // Ball outline.
         g2.setStroke(new BasicStroke(6f));

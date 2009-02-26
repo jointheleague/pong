@@ -1,13 +1,10 @@
 package org.wintrisstech.projects.pong;
 
-import java.awt.Toolkit;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 
 public class PongGame
 {
-    public int width = Toolkit.getDefaultToolkit().getScreenSize().width; // Start off with fixed screendimensions and switch to these later.
-    public int height = Toolkit.getDefaultToolkit().getScreenSize().height;
     public Painter painter;
     private JFrame playingField;
     private Mouser mouser;
