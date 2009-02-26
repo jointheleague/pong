@@ -10,10 +10,10 @@ public class Mouser implements MouseMotionListener
     public void mouseDragged(MouseEvent arg0)
     {
         //Do nothing.
-        }
+    }
 
     public void mouseMoved(MouseEvent mousePosition)
     {
-        game.painter.paddle.y = mousePosition.getY();
+        game.paddle.y = mousePosition.getY();
     }
 }

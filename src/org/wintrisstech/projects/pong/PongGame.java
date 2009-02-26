@@ -1,6 +1,7 @@
 package org.wintrisstech.projects.pong;
 
 import java.awt.Toolkit;
+import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 
 public class PongGame
@@ -10,10 +11,12 @@ public class PongGame
     public Painter painter;
     private JFrame playingField;
     private Mouser mouser;
+    public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
 
     public void startTheGame()
     {
         painter = new Painter(); // Make class Painter into a "real" painter object.
+        painter.game = this;
 
         playingField = new JFrame("PngReference1"); //Make class JFrame a "real" JFrame.
         playingField.setVisible(true);

@@ -9,7 +9,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -19,13 +18,13 @@ public class Painter extends JComponent
     private int ballXposition = 500;
     private int ballYposition = 500;
     private Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
-    public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
     private String ballSpeedString = JOptionPane.showInputDialog("Ball Speed?");
     private int ballXspeedInt = Integer.parseInt(ballSpeedString);
     private int ballYspeedInt = Integer.parseInt(ballSpeedString);
     private int score = 0;
     private URL boingFile = Painter.class.getResource("fire.wav");
     private AudioClip boing = Applet.newAudioClip(boingFile);
+    public PongGame game;
 
     @Override
     public void paint(Graphics g)
@@ -52,9 +51,9 @@ public class Painter extends JComponent
         g2.fill(ball);
 
         g2.setColor(Color.black);
-        g2.draw(paddle);
+        g2.draw(game.paddle);
         g2.setColor(Color.gray);
-        g2.fill(paddle);
+        g2.fill(game.paddle);
 
         ball.x = ball.x + ballXspeedInt; // The way to explain what is happening.
         ball.y += ballYspeedInt; // The way the "Big Boys" do it.
@@ -81,7 +80,7 @@ public class Painter extends JComponent
             g2.drawString("YOU LOSE!",50, 500);
         }
 
-        if (ball.intersects(paddle))
+        if (ball.intersects(game.paddle))
         {
             ballXspeedInt = -ballXspeedInt;
             score += 1;
