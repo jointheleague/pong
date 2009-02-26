@@ -20,16 +20,16 @@ import javax.swing.JOptionPane;
 public class Painter extends JComponent
 {
     public Mouser mouser = new Mouser();
-    int ballXposition = 500;
-    int ballYposition = 500;
+    private int ballXposition = 500;
+    private int ballYposition = 500;
     private Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
     private Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
     private String ballSpeedString = JOptionPane.showInputDialog("Ball Speed?");
     private int ballXspeedInt = Integer.parseInt(ballSpeedString);
     private int ballYspeedInt = Integer.parseInt(ballSpeedString);
     private int score = 0;
-    URL boingFile = Painter.class.getResource("fire.wav");
-    AudioClip boing = Applet.newAudioClip(boingFile);
+    private URL boingFile = Painter.class.getResource("fire.wav");
+    private AudioClip boing = Applet.newAudioClip(boingFile);
 
     @Override
     public void paint(Graphics g)
@@ -96,7 +96,7 @@ public class Painter extends JComponent
         repaint();
     }
 
-    class Mouser implements MouseMotionListener
+    public class Mouser implements MouseMotionListener
     {
         public void mouseDragged(MouseEvent arg0)
         {
