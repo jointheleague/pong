@@ -13,7 +13,7 @@ public class Painter extends JComponent
     public PongGame game;
 
     @Override
-    public void paint(Graphics g)
+    protected void paintComponent(Graphics g)
     {
         // This is how you create the g2 object.
         Graphics2D g2 = (Graphics2D) g;
