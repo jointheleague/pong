@@ -5,7 +5,7 @@ import java.awt.event.MouseMotionListener;
 
 public class Mouser implements MouseMotionListener
 {
-    public Painter painter;
+    public PongGame game;
 
     public void mouseDragged(MouseEvent arg0)
     {
@@ -14,6 +14,6 @@ public class Mouser implements MouseMotionListener
 
     public void mouseMoved(MouseEvent mousePosition)
     {
-        painter.paddle.y = mousePosition.getY();
+        game.painter.paddle.y = mousePosition.getY();
     }
 }

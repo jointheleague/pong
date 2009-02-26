@@ -16,10 +16,6 @@ import javax.swing.JOptionPane;
 
 public class Painter extends JComponent
 {
-    public Mouser mouser = new Mouser();
-    {
-        mouser.painter = this;
-    }
     private int ballXposition = 500;
     private int ballYposition = 500;
     private Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);

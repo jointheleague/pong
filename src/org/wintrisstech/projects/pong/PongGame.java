@@ -8,8 +8,9 @@ public class PongGame
     public int width = Toolkit.getDefaultToolkit().getScreenSize().width; // Start off with fixed screendimensions and switch to these later.
     public int height = Toolkit.getDefaultToolkit().getScreenSize().height;
     public static PongGame controller;
-    private Painter painter;
+    public Painter painter;
     private JFrame playingField;
+    private Mouser mouser;
 
     public static void main(String[] args)
     {
@@ -29,6 +30,9 @@ public class PongGame
 
         playingField.setSize(2000, 1000); // Set size after adding painter so that paint() gets called initially.
 
-        playingField.addMouseMotionListener(painter.mouser); //A little abtruse for the students!
+        mouser = new Mouser();
+        mouser.game = this;
+
+        playingField.addMouseMotionListener(mouser); //A little abtruse for the students!
     }
 }
