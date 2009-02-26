@@ -11,13 +11,6 @@ public class PongGame
     private JFrame playingField;
     private Mouser mouser;
 
-    public static void main(String[] args)
-    {
-        PongGame game;
-        game = new PongGame();
-        game.startTheGame();
-    }
-
     public void startTheGame()
     {
         painter = new Painter(); // Make class Painter into a "real" painter object.
