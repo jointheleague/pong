@@ -15,35 +15,43 @@ public class Painter extends JComponent
     @Override
     public void paint(Graphics g)
     {
+        // This is how you create the g2 object.
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // Optionally show how you can clean up the picture with this.
+        // Optionally show how you can clean up the picture with this.
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g2.setColor(Color.green); // It's fun to have a lot of different colors and fonts
+        // Draw the scoreboard
+        g2.setColor(Color.green);
         g2.setFont(new Font("Ariel", Font.BOLD, 22));
         g2.drawString("Your Score Is ", 1700, 300);
         g2.setColor(Color.black);
         g2.setFont(new Font("Ariel", Font.ITALIC, 32));
         g2.drawString("" + game.score, 1900, 300);
 
+        // Draw the ball speed indicator
         g2.setColor(Color.red);
         g2.drawString("Ball Speed Is     " + game.ballXspeedInt, 1700, 370);
 
-        g2.setColor(Color.black); // Ball outline.
+        // Draw the ball outline
+        g2.setColor(Color.black);
         g2.setStroke(new BasicStroke(6f));
         g2.draw(game.ball);
-
-        g2.setColor(Color.yellow); // Fill ball.
+        // Draw the ball color
+        g2.setColor(Color.yellow);
         g2.fill(game.ball);
 
+        // Draw the paddle outline
         g2.setColor(Color.black);
         g2.draw(game.paddle);
+        // Draw the paddle color
         g2.setColor(Color.gray);
         g2.fill(game.paddle);
 
+        // Draw the "YOU LOSE!" message, but only if the game is over
         if (game.gameOver)
         {
-            g2.setColor(Color.BLACK); // Fun stuff for the kids.
+            g2.setColor(Color.BLACK);
             g2.setFont(new Font("Ariel", Font.BOLD, 300));
             g2.drawString("YOU LOSE!", 50, 500);
         }
