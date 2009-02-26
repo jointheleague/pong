@@ -7,15 +7,15 @@ public class PongGame
 {
     public int width = Toolkit.getDefaultToolkit().getScreenSize().width; // Start off with fixed screendimensions and switch to these later.
     public int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-    public static PongGame controller;
     public Painter painter;
     private JFrame playingField;
     private Mouser mouser;
 
     public static void main(String[] args)
     {
-        controller = new PongGame(); // To get out of static context.
-        controller.startTheGame();
+        PongGame game;
+        game = new PongGame();
+        game.startTheGame();
     }
 
     public void startTheGame()
