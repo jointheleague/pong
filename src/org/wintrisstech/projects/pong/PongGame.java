@@ -87,5 +87,6 @@ public class PongGame implements ActionListener, MouseMotionListener
     public void mouseMoved(MouseEvent mousePosition)
     {
         paddle.y = mousePosition.getY();
+        painter.repaint();
     }
 }
