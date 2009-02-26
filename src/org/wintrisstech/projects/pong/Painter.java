@@ -8,22 +8,22 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.net.URL;
-import javax.swing.JApplet;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 
 public class Painter extends JComponent
 {
     public Mouser mouser = new Mouser();
+    {
+        mouser.painter = this;
+    }
     private int ballXposition = 500;
     private int ballYposition = 500;
     private Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
-    private Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
+    public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
     private String ballSpeedString = JOptionPane.showInputDialog("Ball Speed?");
     private int ballXspeedInt = Integer.parseInt(ballSpeedString);
     private int ballYspeedInt = Integer.parseInt(ballSpeedString);
@@ -96,16 +96,4 @@ public class Painter extends JComponent
         repaint();
     }
 
-    public class Mouser implements MouseMotionListener
-    {
-        public void mouseDragged(MouseEvent arg0)
-        {
-            //Do nothing.
-        }
-
-        public void mouseMoved(MouseEvent mousePosition)
-        {
-            paddle.y = mousePosition.getY();
-        }
-    }
 }
