@@ -1,4 +1,4 @@
-package pongreference1;
+package org.wintrisstech.projects.pong;
 
 import java.awt.Toolkit;
 import javax.swing.JFrame;

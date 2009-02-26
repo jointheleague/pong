@@ -1,4 +1,4 @@
-package pongreference1;
+package org.wintrisstech.projects.pong;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
