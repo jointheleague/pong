@@ -31,15 +31,16 @@ public class Painter extends JComponent
 
         // Draw the ball speed indicator
         g2.setColor(Color.red);
-        g2.drawString("Ball Speed Is     " + game.ballXspeedInt, 1700, 370);
+        g2.drawString("Ball Speed Is     " + game.ball.xSpeed, 1700, 370);
 
         // Draw the ball outline
         g2.setColor(Color.black);
         g2.setStroke(new BasicStroke(6f));
-        g2.draw(game.ball);
+        Ball ball = game.ball;
+        g2.drawOval(ball.x, ball.y, ball.diameter, ball.diameter);
         // Draw the ball color
         g2.setColor(Color.yellow);
-        g2.fill(game.ball);
+        g2.fillOval(ball.x, ball.y, ball.diameter, ball.diameter);
 
         // Draw the paddle outline
         g2.setColor(Color.black);

@@ -18,14 +18,17 @@ public class PongGame implements ActionListener, MouseMotionListener
     private JFrame playingField;
     public boolean gameOver = false;
     public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
-    public Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
-    public int ballXspeedInt = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
-    public int ballYspeedInt = ballXspeedInt;
+    public Ball ball;
     public int score = 0;
     public AudioClip boing = Applet.newAudioClip(Painter.class.getResource("fire.wav"));
 
     public void startTheGame()
     {
+
+        ball = new Ball();
+        ball.xSpeed = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
+        ball.ySpeed = ball.xSpeed;
+
         painter = new Painter(); // Make class Painter into a "real" painter object.
         painter.game = this;
 
@@ -45,32 +48,34 @@ public class PongGame implements ActionListener, MouseMotionListener
 
     public void actionPerformed(ActionEvent e)
     {
-        ball.x = ball.x + ballXspeedInt; // The way to explain what is happening.
-        ball.y += ballYspeedInt; // The way the "Big Boys" do it.
+        ball.x = ball.x + ball.xSpeed; // The way to explain what is happening.
+        ball.y += ball.ySpeed; // The way the "Big Boys" do it.
 
         if (ball.x > 1900) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
         {
-            ballXspeedInt = -ballXspeedInt;
+            ball.xSpeed = -ball.xSpeed;
         }
 
         if (ball.y > 900)
         {
-            ballYspeedInt = -ballYspeedInt;
+            ball.ySpeed = -ball.ySpeed;
         }
 
         if (ball.y < 0)
         {
-            ballYspeedInt = -ballYspeedInt;
+            ball.ySpeed = -ball.ySpeed;
         }
 
-        if (ball.x < -50)
+        if (ball.x + ball.diameter < 0)
         {
             gameOver = true;
         }
 
-        if (ball.intersects(paddle))
+        if (ball.x < paddle.x + paddle.width
+                && ball.y < paddle.y + paddle.height
+                && ball.y + ball.diameter > paddle.y)
         {
-            ballXspeedInt = -ballXspeedInt;
+            ball.xSpeed = -ball.xSpeed;
             score += 1;
             ball.x += 5; // To keep the ball from sticking to the paddle
             boing.play();
