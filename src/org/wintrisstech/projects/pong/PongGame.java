@@ -3,17 +3,17 @@ package org.wintrisstech.projects.pong;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 
-public class Controller
+public class PongGame
 {
     public int width = Toolkit.getDefaultToolkit().getScreenSize().width; // Start off with fixed screendimensions and switch to these later.
     public int height = Toolkit.getDefaultToolkit().getScreenSize().height;
-    public static Controller controller;
+    public static PongGame controller;
     private Painter painter;
     private JFrame playingField;
 
     public static void main(String[] args)
     {
-        controller = new Controller(); // To get out of static context.
+        controller = new PongGame(); // To get out of static context.
         controller.startTheGame();
     }
 
