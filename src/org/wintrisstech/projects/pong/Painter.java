@@ -41,40 +41,12 @@ public class Painter extends JComponent
         g2.setColor(Color.gray);
         g2.fill(game.paddle);
 
-        game.ball.x = game.ball.x + game.ballXspeedInt; // The way to explain what is happening.
-        game.ball.y += game.ballYspeedInt; // The way the "Big Boys" do it.
-
-        if (game.ball.x > 1900) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
-        {
-            game.ballXspeedInt = -game.ballXspeedInt;
-        }
-
-        if (game.ball.y > 900)
-        {
-            game.ballYspeedInt = -game.ballYspeedInt;
-        }
-
-        if (game.ball.y < 0)
-        {
-            game.ballYspeedInt = -game.ballYspeedInt;
-        }
-
-        if(game.ball.x < 0)
+        if (game.gameOver)
         {
             g2.setColor(Color.BLACK); // Fun stuff for the kids.
             g2.setFont(new Font("Ariel", Font.BOLD, 300));
-            g2.drawString("YOU LOSE!",50, 500);
+            g2.drawString("YOU LOSE!", 50, 500);
         }
 
-        if (game.ball.intersects(game.paddle))
-        {
-            game.ballXspeedInt = -game.ballXspeedInt;
-            game.score += 1;
-            game.ball.x += 5; // To keep the ball from sticking to the paddle
-            game.boing.play();
-        }
-
-        repaint();
     }
-
 }

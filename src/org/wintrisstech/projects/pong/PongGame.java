@@ -2,16 +2,20 @@ package org.wintrisstech.projects.pong;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
-public class PongGame
+public class PongGame implements ActionListener
 {
     public Painter painter;
     private JFrame playingField;
     private Mouser mouser;
+    public boolean gameOver = false;
     public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
     public Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
     public int ballXspeedInt = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
@@ -36,5 +40,44 @@ public class PongGame
         mouser.game = this;
 
         playingField.addMouseMotionListener(mouser); //A little abtruse for the students!
+
+        Timer updateTimer = new Timer(20, this);
+        updateTimer.start();
+    }
+
+    public void actionPerformed(ActionEvent e)
+    {
+        ball.x = ball.x + ballXspeedInt; // The way to explain what is happening.
+        ball.y += ballYspeedInt; // The way the "Big Boys" do it.
+
+        if (ball.x > 1900) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
+        {
+            ballXspeedInt = -ballXspeedInt;
+        }
+
+        if (ball.y > 900)
+        {
+            ballYspeedInt = -ballYspeedInt;
+        }
+
+        if (ball.y < 0)
+        {
+            ballYspeedInt = -ballYspeedInt;
+        }
+
+        if (ball.x < 0)
+        {
+            gameOver = true;
+        }
+
+        if (ball.intersects(paddle))
+        {
+            ballXspeedInt = -ballXspeedInt;
+            score += 1;
+            ball.x += 5; // To keep the ball from sticking to the paddle
+            boing.play();
+        }
+
+        painter.repaint();
     }
 }
