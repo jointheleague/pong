@@ -4,17 +4,18 @@ import java.applet.Applet;
 import java.applet.AudioClip;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class PongGame implements ActionListener
+public class PongGame implements ActionListener, MouseMotionListener
 {
     public Painter painter;
     private JFrame playingField;
-    private Mouser mouser;
     public boolean gameOver = false;
     public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
     public Ellipse2D.Double ball = new Ellipse2D.Double(500, 500, 50, 50);
@@ -36,10 +37,7 @@ public class PongGame implements ActionListener
 
         playingField.setSize(2000, 1000); // Set size after adding painter so that paint() gets called initially.
 
-        mouser = new Mouser();
-        mouser.game = this;
-
-        playingField.addMouseMotionListener(mouser); //A little abtruse for the students!
+        playingField.addMouseMotionListener(this); //A little abtruse for the students!
 
         Timer updateTimer = new Timer(20, this);
         updateTimer.start();
@@ -79,5 +77,15 @@ public class PongGame implements ActionListener
         }
 
         painter.repaint();
+    }
+
+    public void mouseDragged(MouseEvent arg0)
+    {
+        //Do nothing.
+    }
+
+    public void mouseMoved(MouseEvent mousePosition)
+    {
+        paddle.y = mousePosition.getY();
     }
 }
