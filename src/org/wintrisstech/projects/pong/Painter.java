@@ -43,11 +43,12 @@ public class Painter extends JComponent
         g2.fillOval(ball.x, ball.y, ball.diameter, ball.diameter);
 
         // Draw the paddle outline
+        Paddle p = game.paddle;
         g2.setColor(Color.black);
-        g2.draw(game.paddle);
+        g2.drawRect(p.x, p.y, p.width, p.height);
         // Draw the paddle color
         g2.setColor(Color.gray);
-        g2.fill(game.paddle);
+        g2.fillRect(p.x, p.y, p.width, p.height);
 
         // Draw the "YOU LOSE!" message, but only if the game is over
         if (game.gameOver)

@@ -6,7 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionListener;
-import java.awt.geom.Rectangle2D;
 import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,11 +16,10 @@ public class PongGame implements ActionListener, MouseMotionListener
     public Painter painter;
     private JFrame playingField;
     public boolean gameOver = false;
-    public Rectangle2D.Double paddle = new Rectangle2D.Double(10, 300, 10, 100);
+    public Paddle paddle;
     public Ball ball;
     public int score = 0;
     public URL soundAddress = getClass().getResource("fire.wav"); // Find the address of the sound file.
-    
     public AudioClip boing = Applet.newAudioClip(soundAddress); // Convert the sound file to an AudioClip that Java can use.
 
     public void startTheGame()
@@ -29,6 +27,8 @@ public class PongGame implements ActionListener, MouseMotionListener
         ball = new Ball();
         ball.xSpeed = Integer.parseInt(JOptionPane.showInputDialog("Ball Speed?"));
         ball.ySpeed = ball.xSpeed;
+
+        paddle = new Paddle();
 
         painter = new Painter(); // Make class Painter into a "real" painter object.
         painter.game = this;
@@ -72,7 +72,7 @@ public class PongGame implements ActionListener, MouseMotionListener
             gameOver = true;
         }
 
-        if (ball.x < paddle.x + paddle.width && ball.y < paddle.y + paddle.height && ball.y + ball.diameter > paddle.y)
+        if (ball.x + ball.diameter > 0 && ball.x < paddle.x + paddle.width && ball.y < paddle.y + paddle.height && ball.y + ball.diameter > paddle.y)
         {
             ball.xSpeed = -ball.xSpeed;
             score += 1;
