@@ -56,6 +56,5 @@ public class Painter extends JComponent
             g2.setFont(new Font("Ariel", Font.BOLD, 300));
             g2.drawString("YOU LOSE!", 50, 500);
         }
-
     }
 }
