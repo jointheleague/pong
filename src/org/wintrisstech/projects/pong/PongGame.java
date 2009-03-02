@@ -2,6 +2,7 @@ package org.wintrisstech.projects.pong;
 
 import java.applet.Applet;
 import java.applet.AudioClip;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -39,9 +40,10 @@ public class PongGame implements ActionListener, MouseMotionListener
 
         playingField.add(painter); // Let the JFrame know is has an artist who will paint on the JFrame.
 
-        playingField.setSize(2000, 1000); // Set size after adding painter so that paint() gets called initially.
-
-        playingField.addMouseMotionListener(this); //A little abtruse for the students!
+        playingField.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize()); 
+        playingField.pack(); // Pack after adding painter so that painter gets its size.
+        
+        painter.addMouseMotionListener(this); //A little abstruse for the students!
 
         Timer updateTimer = new Timer(20, this);
         updateTimer.start();
@@ -52,12 +54,12 @@ public class PongGame implements ActionListener, MouseMotionListener
         ball.x = ball.x + ball.xSpeed; // The way to explain what is happening.
         ball.y += ball.ySpeed; // The way the "Big Boys" do it.
 
-        if (ball.x > 1900) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
+        if ( ball.x + ball.diameter > painter.getWidth() ) // These are good brain burners for the kids.  They can usually figure it out.  Explain why it can't be 1500 if the screen width is 1500 because of ball bounding box.
         {
             ball.xSpeed = -ball.xSpeed;
         }
 
-        if (ball.y > 900)
+        if ( ball.y + ball.diameter > painter.getHeight() )
         {
             ball.ySpeed = -ball.ySpeed;
         }
@@ -90,7 +92,7 @@ public class PongGame implements ActionListener, MouseMotionListener
 
     public void mouseMoved(MouseEvent mousePosition)
     {
-        paddle.y = mousePosition.getY();
+        paddle.y = mousePosition.getY() - paddle.height/2;
         painter.repaint();
     }
 }
