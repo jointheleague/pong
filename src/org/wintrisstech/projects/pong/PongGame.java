@@ -8,10 +8,6 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -19,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
-public class PongGame extends JComponent implements Runnable, ActionListener, MouseMotionListener, KeyListener
+public class PongGame extends JComponent implements Runnable, ActionListener
 {
 
     private int width = 800;
@@ -45,17 +41,18 @@ public class PongGame extends JComponent implements Runnable, ActionListener, Mo
         ball.setPaddle(paddle);
 
         setPreferredSize(new Dimension(width, height));
-        addMouseMotionListener(this);
+        addMouseMotionListener(paddle); // the paddle listens to mouse movements
 
         frame = new JFrame("Pong");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.addKeyListener(this);
+        frame.addKeyListener(paddle); // the paddle listens to key events
+        frame.addKeyListener(ball); // the ball also listens to key events
         frame.add(this);
         frame.pack();
         frame.setResizable(false);
         frame.setVisible(true);
 
-        updateTimer = new Timer(20, this);
+        updateTimer = new Timer(20, this); // the pong game listens to updateTimer events
         updateTimer.start();
     }
 
@@ -69,12 +66,13 @@ public class PongGame extends JComponent implements Runnable, ActionListener, Mo
 
     private void tickUpdate()
     {
+        paddle.tickUpdate();
         ball.tickUpdate();
         if (ball.outOfBounds)
         {
             updateTimer.stop();
-            int playAgain = JOptionPane.showConfirmDialog(frame, 
-                    "Your score is " + score + "\nDo you want to play again?",
+            int playAgain = JOptionPane.showConfirmDialog(frame,
+                    "Your score is " + score + ".\nDo you want to play again?",
                     "Game Over", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if (playAgain == JOptionPane.OK_OPTION)
             {
@@ -82,7 +80,7 @@ public class PongGame extends JComponent implements Runnable, ActionListener, Mo
                 updateTimer.restart();
             } else
             {
-                System.exit(0); //Normal exit
+                System.exit(0); //Graceful exit
             }
         }
 
@@ -96,54 +94,21 @@ public class PongGame extends JComponent implements Runnable, ActionListener, Mo
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(Graphics g)
+    {
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.BLACK);
         g2.fillRect(0, 0, width, height);
         g2.setColor(Color.WHITE);
         g2.drawRect(0, 0, width, height);
-        paddle.paintMe(g2);
-        ball.paintMe(g2);
+        paddle.paintSelf(g2);
+        ball.paintSelf(g2);
     }
 
     private void reset()
     {
         score = 0;
+        paddle.reset();
         ball.reset();
-    }
-
-    public void mouseDragged(MouseEvent arg0)
-    {
-        //Do nothing.
-    }
-
-    public void mouseMoved(MouseEvent mousePosition)
-    {
-        paddle.centerY(mousePosition.getY());
-        repaint();
-    }
-
-    public void keyTyped(KeyEvent e)
-    {
-        // Do nothing
-    }
-
-    public void keyPressed(KeyEvent e)
-    {
-        if (e.getKeyCode() == KeyEvent.VK_SPACE)
-        {
-            if (updateTimer.isRunning())
-            {
-                updateTimer.stop();
-            } else
-            {
-                updateTimer.restart();
-            }
-        }
-    }
-
-    public void keyReleased(KeyEvent e)
-    {
-        // Do nothing
     }
 }

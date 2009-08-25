@@ -2,27 +2,35 @@ package org.wintrisstech.projects.pong;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-class Ball
+class Ball implements KeyListener
 {
-
+    private static final int defaultSpeed = 10;
+    private static final int defaultDiameter = 50;
     private int x;
     private int y;
     private int courtWidth;
     private int courtHeight;
-    static private int defaultSpeed = 10;
     private int xSpeed = defaultSpeed;
     private int ySpeed = defaultSpeed;
-    private int diameter = 50;
+    private int diameter = defaultDiameter;
     boolean outOfBounds = false;
     boolean hitPaddle = false;
     private Paddle paddle;
+    private boolean frozen = false;
 
     void setCourtDimension(int w, int h)
     {
         courtWidth = w;
         courtHeight = h;
         reset();
+    }
+
+    void setPaddle(Paddle p)
+    {
+        paddle = p;
     }
 
     void reset()
@@ -32,15 +40,15 @@ class Ball
         outOfBounds = false;
         xSpeed = defaultSpeed;
         ySpeed = defaultSpeed;
-    }
-
-    void setPaddle(Paddle p)
-    {
-        paddle = p;
+        frozen = false;
     }
 
     void tickUpdate()
     {
+        if (frozen)
+        {
+            return;
+        }
         x = x + xSpeed; // The way to explain what is happening.
         y += ySpeed; // The way the "Big Boys" do it.
 
@@ -73,10 +81,28 @@ class Ball
 
     }
 
-    void paintMe(Graphics2D g2)
+    void paintSelf(Graphics2D g2)
     {
         g2.setColor(Color.YELLOW);
         g2.fillOval(x, y, diameter, diameter);
 
+    }
+
+    public void keyTyped(KeyEvent e)
+    {
+        //Do nothing
+    }
+
+    public void keyPressed(KeyEvent e)
+    {
+        if (e.getKeyCode() == KeyEvent.VK_SPACE)
+        {
+            frozen = !frozen;
+        }
+    }
+
+    public void keyReleased(KeyEvent e)
+    {
+        //Do nothing
     }
 }
