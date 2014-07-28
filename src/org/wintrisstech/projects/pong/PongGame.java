@@ -5,14 +5,17 @@ import java.applet.AudioClip;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.net.URL;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class PongGame implements ActionListener, MouseMotionListener
+public class PongGame implements ActionListener, MouseMotionListener, KeyListener, MouseListener
 {
     public Painter painter;
     private JFrame playingField;
@@ -44,6 +47,8 @@ public class PongGame implements ActionListener, MouseMotionListener
         playingField.pack(); // Pack after adding painter so that painter gets its size.
         
         painter.addMouseMotionListener(this); //A little abstruse for the students!
+        playingField.addKeyListener(this);
+        playingField.addMouseListener(this);
 
         Timer updateTimer = new Timer(20, this);
         updateTimer.start();
@@ -94,5 +99,40 @@ public class PongGame implements ActionListener, MouseMotionListener
     {
         paddle.y = mousePosition.getY() - paddle.height/2;
         painter.repaint();
+    }
+
+    public void keyTyped(KeyEvent e)
+    {
+    }
+
+    public void keyPressed(KeyEvent e)
+    {
+        System.out.println(e);
+    }
+
+    public void keyReleased(KeyEvent e)
+    {
+    }
+
+    public void mouseClicked(MouseEvent e)
+    {
+        System.out.println("click");
+    }
+
+    public void mousePressed(MouseEvent e)
+    {
+        System.out.println("press");
+    }
+
+    public void mouseReleased(MouseEvent e)
+    {
+    }
+
+    public void mouseEntered(MouseEvent e)
+    {
+    }
+
+    public void mouseExited(MouseEvent e)
+    {
     }
 }
