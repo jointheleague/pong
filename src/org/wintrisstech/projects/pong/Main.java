@@ -6,6 +6,6 @@ public class Main
     {
         PongGame game;
         game = new PongGame();
-        game.startTheGame();
+        game.startTheGame();//made changes at github.com on branch
     }
 }
